@@ -5,7 +5,7 @@ from __future__ import annotations
 from kedro.framework.project import find_pipelines
 from kedro.pipeline import Pipeline
 from proyect_machine.pipelines.modelo_regresion.pipeline import create_pipeline as modelo_regresion_pipeline
-from proyect_machine.pipelines import modelo_clasificacion as modelo_clasificacion
+
 
 def register_pipelines() -> dict[str, Pipeline]:
     """Register the project's pipelines.
@@ -25,12 +25,4 @@ def register_pipelines() -> dict[str, Pipeline]:
     return {
         "modelo_regresion": modelo_regresion_pipeline(),  # <--- llamar directamente
         "__default__": modelo_regresion_pipeline(),        # <--- llamar directamente
-    }
-
-
-
-def register_pipelines() -> Dict[str, Pipeline]:
-    return {
-        "modelo_clasificacion": modelo_clasificacion.create_pipeline(),
-        "__default__": modelo_clasificacion.create_pipeline()
     }

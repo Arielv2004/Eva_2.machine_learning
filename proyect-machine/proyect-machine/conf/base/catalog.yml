@@ -19,9 +19,3 @@ credits:
 ratings:
   type: pandas.CSVDataset
   filepath: data/01_raw/ratings.csv
-
-knn_model:
-  type: MemoryDataSet
-
-knn_metrics:
-  type: MemoryDataSet
