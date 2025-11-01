@@ -1,23 +1,14 @@
 version: '3'
-x-airflow-common:
-  &airflow-common
+
+x-airflow-common: &airflow-common
   image: apache/airflow:2.9.2
-  environment:
-    - AIRFLOW__CORE__EXECUTOR=SequentialExecutor
-    - AIRFLOW__CORE__LOAD_EXAMPLES=False
-    - AIRFLOW__CORE__DAGS_ARE_PAUSED_AT_CREATION=True
-    - AIRFLOW__WEBSERVER__RBAC=True
-    - AIRFLOW__WEBSERVER__ENABLE_PROXY_FIX=True
-    - AIRFLOW__CORE__FERNET_KEY=Jh5_dgs-PawMKMpJcWESv4CV8PdmfwIvTsFNsvzddYQ=
-    - AIRFLOW__CORE__DAGS_FOLDER=/opt/airflow/dags
-    - AIRFLOW__DATABASE__SQL_ALCHEMY_CONN=sqlite:////opt/airflow/airflow.db
-    - AIRFLOW_UID=50000
+  env_file:
+    - .env
   volumes:
     - C:/airflow_data/dags:/opt/airflow/dags
     - C:/airflow_data/logs:/opt/airflow/logs
     - C:/airflow_data/plugins:/opt/airflow/plugins
     - C:/airflow_data/db:/opt/airflow
-
   user: "${AIRFLOW_UID:-50000}:0"
 
 services:
