@@ -1,29 +1,85 @@
 import pandas as pd
-import pickle
+from sklearn.model_selection import train_test_split
+from sklearn.preprocessing import StandardScaler
+from sklearn.linear_model import LinearRegression
+from sklearn.tree import DecisionTreeRegressor
+from sklearn.ensemble import RandomForestRegressor
+from sklearn.neighbors import KNeighborsRegressor
+from sklearn.metrics import mean_squared_error, r2_score
+import numpy as np
 
-# Selecciona columnas numéricas
-def select_numeric_columns(data: pd.DataFrame, feature_cols: list) -> pd.DataFrame:
-    return data[feature_cols].select_dtypes(include=['float64', 'int64'])
+# Función auxiliar general
 
-# Node para cargar modelo desde pickle
-def load_linear_model(model_path: str):
-    """Carga un modelo de regresión lineal entrenado desde un archivo pickle."""
-    with open(model_path, "rb") as f:
-        model = pickle.load(f)
-    return model
+def train_and_evaluate_model(model, X_train, X_test, y_train, y_test):
+    model.fit(X_train, y_train)
+    y_pred = model.predict(X_test)
+    mse = mean_squared_error(y_test, y_pred)
+    r2 = r2_score(y_test, y_pred)
+    return model, {"MSE": mse, "R2": r2}
 
-# Node para hacer predicciones usando el modelo cargado
-def predict_with_model(model, data: pd.DataFrame, feature_cols: list, impute_X=True):
-    """Recibe un modelo y datos, devuelve predicciones agregadas al DataFrame."""
-    X = select_numeric_columns(data, feature_cols)
 
-    # Imputar NaN si corresponde
-    if impute_X:
-        from sklearn.impute import SimpleImputer
-        imputer = SimpleImputer(strategy='mean')
-        X = pd.DataFrame(imputer.fit_transform(X), columns=X.columns, index=X.index)
+# Regresión Lineal Simple
 
-    preds = model.predict(X)
-    data = data.copy()
-    data['predicted'] = preds
-    return data
+def train_linear_simple(movies_metadata: pd.DataFrame):
+    data = movies_metadata.dropna(subset=["budget", "revenue"])
+    X = data[["budget"]]
+    y = data["revenue"]
+
+    X_train, X_test, y_train, y_test = train_test_split(X, y, test_size=0.2, random_state=42)
+    model = LinearRegression()
+
+    return train_and_evaluate_model(model, X_train, X_test, y_train, y_test)
+
+
+# Regresión Lineal Múltiple
+
+def train_linear_multiple(movies_metadata: pd.DataFrame):
+    data = movies_metadata.dropna(subset=["budget", "popularity", "runtime", "revenue"])
+    X = data[["budget", "popularity", "runtime"]]
+    y = data["revenue"]
+
+    X_train, X_test, y_train, y_test = train_test_split(X, y, test_size=0.2, random_state=42)
+    model = LinearRegression()
+
+    return train_and_evaluate_model(model, X_train, X_test, y_train, y_test)
+
+
+# Árbol de Decisión
+
+def train_decision_tree(movies_metadata: pd.DataFrame):
+    data = movies_metadata.dropna(subset=["budget", "popularity", "runtime", "revenue"])
+    X = data[["budget", "popularity", "runtime"]]
+    y = data["revenue"]
+
+    X_train, X_test, y_train, y_test = train_test_split(X, y, test_size=0.2, random_state=42)
+    model = DecisionTreeRegressor(random_state=42)
+
+    return train_and_evaluate_model(model, X_train, X_test, y_train, y_test)
+
+# Random Forest
+
+def train_random_forest(movies_metadata: pd.DataFrame):
+    data = movies_metadata.dropna(subset=["budget", "popularity", "runtime", "revenue"])
+    X = data[["budget", "popularity", "runtime"]]
+    y = data["revenue"]
+
+    X_train, X_test, y_train, y_test = train_test_split(X, y, test_size=0.2, random_state=42)
+    model = RandomForestRegressor(n_estimators=100, random_state=42)
+
+    return train_and_evaluate_model(model, X_train, X_test, y_train, y_test)
+
+# KNN Regressor
+
+def train_knn_regressor(movies_metadata: pd.DataFrame):
+    data = movies_metadata.dropna(subset=["budget", "popularity", "runtime", "revenue"])
+    X = data[["budget", "popularity", "runtime"]]
+    y = data["revenue"]
+
+    X_train, X_test, y_train, y_test = train_test_split(X, y, test_size=0.2, random_state=42)
+    scaler = StandardScaler()
+    X_train_scaled = scaler.fit_transform(X_train)
+    X_test_scaled = scaler.transform(X_test)
+
+    model = KNeighborsRegressor(n_neighbors=5)
+
+    return train_and_evaluate_model(model, X_train_scaled, X_test_scaled, y_train, y_test)

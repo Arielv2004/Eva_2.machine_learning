@@ -8,9 +8,8 @@ from sklearn.neighbors import KNeighborsClassifier
 from sklearn.ensemble import RandomForestClassifier
 from sklearn.metrics import accuracy_score, classification_report
 
-# ----------------------------
 # Logistic Regression
-# ----------------------------
+
 def train_logistic_regression(movies_metadata: pd.DataFrame):
     movies_metadata['high_rating'] = (movies_metadata['vote_average'] > 6).astype(int)
     numeric_cols = ['vote_count', 'popularity', 'runtime', 'budget']
@@ -35,9 +34,8 @@ def train_logistic_regression(movies_metadata: pd.DataFrame):
 
     return model
 
-# ----------------------------
 # Decision Tree
-# ----------------------------
+
 def train_decision_tree(movies_metadata: pd.DataFrame):
     movies_metadata['high_rating'] = (movies_metadata['vote_average'] > 6).astype(int)
     numeric_cols = ['runtime', 'popularity', 'vote_count', 'revenue', 'budget']
@@ -62,9 +60,8 @@ def train_decision_tree(movies_metadata: pd.DataFrame):
 
     return model
 
-# ----------------------------
 # KNN
-# ----------------------------
+
 def train_knn(movies_metadata: pd.DataFrame):
     movies_metadata['high_rating'] = (movies_metadata['vote_average'] > 6).astype(int)
     selected_features = ['runtime', 'popularity', 'vote_count', 'revenue', 'budget']
@@ -89,9 +86,8 @@ def train_knn(movies_metadata: pd.DataFrame):
 
     return model
 
-# ----------------------------
 # Random Forest
-# ----------------------------
+
 def train_random_forest(movies_metadata: pd.DataFrame):
     movies_metadata['high_rating'] = (movies_metadata['vote_average'] > 6).astype(int)
     selected_features = ['runtime', 'popularity', 'vote_count', 'revenue', 'budget']

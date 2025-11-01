@@ -1,37 +1,89 @@
-# Catalogo de datasets para el proyecto de películas
+# ================================
+# 📂 Catálogo de datasets del proyecto de películas
+# ================================
 
+# -------------------------------
 # Datasets crudos
+# -------------------------------
 movies_metadata:
   type: pandas.CSVDataset
-  filepath: data/01_raw/movies_metadata.csv
+  filepath: ./data/01_raw/movies_metadata.csv
   load_args:
     low_memory: False
 
 credits:
   type: pandas.CSVDataset
-  filepath: data/01_raw/credits.csv
+  filepath: ./data/01_raw/credits.csv
 
 ratings:
   type: pandas.CSVDataset
-  filepath: data/01_raw/ratings.csv
+  filepath: ./data/01_raw/ratings.csv
 
-# Modelos y métricas (almacenados en disco)
+# -------------------------------
+# Modelos de clasificación
+# -------------------------------
 knn_model:
   type: pickle.PickleDataset
-  filepath: data/05_model_input/knn_model.pkl
+  filepath: ./data/05_model_input/knn_model.pkl
 
 knn_metrics:
   type: pickle.PickleDataset
-  filepath: data/05_model_input/knn_metrics.pkl
+  filepath: ./data/05_model_input/knn_metrics.pkl
 
 svc_model:
   type: pickle.PickleDataset
-  filepath: data/05_model_input/svc_model.pkl
+  filepath: ./data/05_model_input/svc_model.pkl
 
 svc_metrics:
   type: pickle.PickleDataset
-  filepath: data/05_model_input/svc_metrics.pkl
+  filepath: ./data/05_model_input/svc_metrics.pkl
 
+# -------------------------------
+# Modelos de regresión
+# -------------------------------
+
+# 🔹 Regresión Lineal Simple
 linear_simple_model:
-  type: pickle.PickleDataSet
-  filepath: data/06_models/linear_simple_model.pkl
+  type: pickle.PickleDataset
+  filepath: ./notebooks/04_modelos_regresion/data/06_models/linear_simple_model.pkl
+
+linear_simple_metrics:
+  type: pickle.PickleDataset
+  filepath: ./notebooks/04_modelos_regresion/data/06_models/linear_simple_metrics.pkl
+
+
+# 🔹 Regresión Lineal Múltiple
+linear_multiple_model:
+  type: pickle.PickleDataset
+  filepath: ./notebooks/04_modelos_regresion/data/06_models/linear_multiple_model.pkl
+
+linear_multiple_metrics:
+  type: pickle.PickleDataset
+  filepath: ./notebooks/04_modelos_regresion/data/06_models/linear_multiple_metrics.pkl
+
+# 🔹 Árbol de Decisión
+decision_tree_model:
+  type: pickle.PickleDataset
+  filepath: ./notebooks/04_modelos_regresion/data/06_models/decision_tree_model.pkl
+
+decision_tree_metrics:
+  type: pickle.PickleDataset
+  filepath: ./notebooks/04_modelos_regresion/data/06_models/decision_tree_metrics.pkl
+
+# 🔹 Random Forest
+random_forest_model:
+  type: pickle.PickleDataset
+  filepath: ./notebooks/04_modelos_regresion/data/06_models/random_forest_model.pkl
+
+random_forest_metrics:
+  type: pickle.PickleDataset
+  filepath: ./notebooks/04_modelos_regresion/data/06_models/random_forest_metrics.pkl
+
+# 🔹 KNN Regressor
+knn_regressor_model:
+  type: pickle.PickleDataset
+  filepath: ./notebooks/04_modelos_regresion/data/06_models/knn_regressor_model.pkl
+
+knn_regressor_metrics:
+  type: pickle.PickleDataset
+  filepath: ./notebooks/04_modelos_regresion/data/06_models/knn_regressor_metrics.pkl
