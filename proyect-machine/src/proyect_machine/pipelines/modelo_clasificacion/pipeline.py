@@ -4,7 +4,8 @@ from .nodes import (
     train_logistic_regression,
     train_decision_tree,
     train_knn,
-    train_random_forest
+    train_random_forest,
+    train_svm
 )
 
 def create_pipeline(**kwargs) -> Pipeline:
@@ -32,5 +33,11 @@ def create_pipeline(**kwargs) -> Pipeline:
             inputs="movies_metadata",
             outputs="random_forest_model",
             name="train_random_forest_node",
+        ),
+        node(
+            func=train_svm,  
+            inputs="movies_metadata",
+            outputs="svm_model",
+            name="train_svm_node",
         ),
     ])

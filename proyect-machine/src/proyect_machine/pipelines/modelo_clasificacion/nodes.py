@@ -24,7 +24,7 @@ def guardar_modelo_y_metricas(nombre, modelo, y_test, y_pred):
     with open(f"{ruta_guardado}/{nombre}_metrics.pkl", "wb") as f:
         pickle.dump(metricas, f)
     
-    print(f"✅ Modelo y métricas guardadas en: {ruta_guardado}/{nombre}_model.pkl")
+    print(f"Modelo y métricas guardadas en: {ruta_guardado}/{nombre}_model.pkl")
 
 # --- Logistic Regression ---
 def train_logistic_regression(movies_metadata: pd.DataFrame):
