@@ -2,7 +2,7 @@
 """
 
 __version__ = "0.1"
-from proyect_machine.pipelines.modelo_regresion import pipeline as modelo_regresion_pipeline
+from proyect_machine.pipelines.regression import pipeline as modelo_regresion_pipeline
 
 def register_pipelines():
     return {

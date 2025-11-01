@@ -13,3 +13,7 @@ target_col: vote_count
 feature_cols: ['revenue', 'budget', 'popularity', 'runtime', 'vote_average']
 test_size: 0.5
 random_state: 42
+
+model_path: data/06_models/linear_simple_model.pkl
+feature_cols:
+  - revenue

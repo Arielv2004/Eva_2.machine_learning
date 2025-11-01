@@ -1,28 +1,17 @@
 """Project pipelines."""
 from __future__ import annotations
 
-
-from kedro.framework.project import find_pipelines
 from kedro.pipeline import Pipeline
 from proyect_machine.pipelines.modelo_regresion.pipeline import create_pipeline as modelo_regresion_pipeline
-
-
-def register_pipelines() -> dict[str, Pipeline]:
-    """Register the project's pipelines.
-
-    Returns:
-        A mapping from pipeline names to ``Pipeline`` objects.
-    """
-    pipelines = find_pipelines()
-    pipelines["__default__"] = sum(pipelines.values())
-    return pipelines
-
-
-
+from proyect_machine.pipelines.modelo_clasificacion.pipeline import create_pipeline as modelo_clasificacion_pipeline
 
 def register_pipelines() -> dict[str, Pipeline]:
     """Register the project's pipelines."""
+    modelo_regresion = modelo_regresion_pipeline()
+    modelo_clasificacion = modelo_clasificacion_pipeline()
+
     return {
-        "modelo_regresion": modelo_regresion_pipeline(),  # <--- llamar directamente
-        "__default__": modelo_regresion_pipeline(),        # <--- llamar directamente
+        "__default__": modelo_regresion + modelo_clasificacion,  # Ejecuta ambos al correr `kedro run`
+        "modelo_regresion": modelo_regresion,
+        "modelo_clasificacion": modelo_clasificacion,
     }

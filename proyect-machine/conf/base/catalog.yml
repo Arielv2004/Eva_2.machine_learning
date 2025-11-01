@@ -1,11 +1,6 @@
-# Here you can define all your datasets by using simple YAML syntax.
-#
-# Documentation for this file format can be found in "The Data Catalog"
-# Link: https://docs.kedro.org/en/stable/data/data_catalog.html
-# Datasets crudos
-# Datasets crudos
 # Catalogo de datasets para el proyecto de películas
 
+# Datasets crudos
 movies_metadata:
   type: pandas.CSVDataset
   filepath: data/01_raw/movies_metadata.csv
@@ -20,8 +15,23 @@ ratings:
   type: pandas.CSVDataset
   filepath: data/01_raw/ratings.csv
 
+# Modelos y métricas (almacenados en disco)
 knn_model:
-  type: MemoryDataSet
+  type: pickle.PickleDataset
+  filepath: data/05_model_input/knn_model.pkl
 
 knn_metrics:
-  type: MemoryDataSet
+  type: pickle.PickleDataset
+  filepath: data/05_model_input/knn_metrics.pkl
+
+svc_model:
+  type: pickle.PickleDataset
+  filepath: data/05_model_input/svc_model.pkl
+
+svc_metrics:
+  type: pickle.PickleDataset
+  filepath: data/05_model_input/svc_metrics.pkl
+
+linear_simple_model:
+  type: pickle.PickleDataSet
+  filepath: data/06_models/linear_simple_model.pkl
