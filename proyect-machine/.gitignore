@@ -9,11 +9,11 @@ conf/local/**
 # ignore potentially sensitive credentials files
 conf/**/*credentials*
 
-# ignore everything in the following folders
+# ignore everything in the data folders, EXCEPT .gitkeep and .dvc files
 data/**
-
-# except their sub-folders
 !data/**/
+!data/**/*.dvc
+!.gitkeep
 
 # also keep all .gitkeep files
 !.gitkeep
