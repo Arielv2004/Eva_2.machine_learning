@@ -160,3 +160,8 @@ venv.bak/
 
 # mlflow local runs
 mlruns/*
+# Archivos de Airflow y temporales
+686269002441
+airflow.db
+__pycache__/
+logs/
