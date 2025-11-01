@@ -1,10 +1,5 @@
-# ================================
-# 📂 Catálogo de datasets del proyecto de películas
-# ================================
 
-# -------------------------------
 # Datasets crudos
-# -------------------------------
 movies_metadata:
   type: pandas.CSVDataset
   filepath: ./data/01_raw/movies_metadata.csv
@@ -19,28 +14,8 @@ ratings:
   type: pandas.CSVDataset
   filepath: ./data/01_raw/ratings.csv
 
-# -------------------------------
-# Modelos de clasificación
-# -------------------------------
-knn_model:
-  type: pickle.PickleDataset
-  filepath: ./data/05_model_input/knn_model.pkl
-
-knn_metrics:
-  type: pickle.PickleDataset
-  filepath: ./data/05_model_input/knn_metrics.pkl
-
-svc_model:
-  type: pickle.PickleDataset
-  filepath: ./data/05_model_input/svc_model.pkl
-
-svc_metrics:
-  type: pickle.PickleDataset
-  filepath: ./data/05_model_input/svc_metrics.pkl
-
-# -------------------------------
 # Modelos de regresión
-# -------------------------------
+
 
 # 🔹 Regresión Lineal Simple
 linear_simple_model:
