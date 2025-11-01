@@ -12,16 +12,19 @@ from sklearn.metrics import accuracy_score, classification_report
 
 # --- Función auxiliar para guardar modelos y métricas ---
 def guardar_modelo_y_metricas(nombre, modelo, y_test, y_pred):
-    os.makedirs("data/06_models", exist_ok=True)
-    with open(f"data/06_models/{nombre}_model.pkl", "wb") as f:
+    ruta_guardado = "./notebooks/04_modelos_clasificacion/data/06_models"
+    os.makedirs(ruta_guardado, exist_ok=True)
+    
+    with open(f"{ruta_guardado}/{nombre}_model.pkl", "wb") as f:
         pickle.dump(modelo, f)
     metricas = {
         "accuracy": accuracy_score(y_test, y_pred),
         "report": classification_report(y_test, y_pred, output_dict=True)
     }
-    with open(f"data/06_models/{nombre}_metrics.pkl", "wb") as f:
+    with open(f"{ruta_guardado}/{nombre}_metrics.pkl", "wb") as f:
         pickle.dump(metricas, f)
-    print(f" Modelo y métricas guardadas: {nombre}")
+    
+    print(f"✅ Modelo y métricas guardadas en: {ruta_guardado}/{nombre}_model.pkl")
 
 # --- Logistic Regression ---
 def train_logistic_regression(movies_metadata: pd.DataFrame):
