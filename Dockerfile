@@ -1,8 +1,3 @@
-# ============================================
-# 🧠 Dockerfile - Proyecto ML con Kedro + DVC
-# ============================================
-
-# Imagen base ligera pero compatible
 FROM python:3.11-slim
 
 # Carpeta de trabajo
