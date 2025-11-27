@@ -51,3 +51,7 @@ cluster_results:
 movies_with_clusters:
   type: pandas.CSVDataset
   filepath: ./data/08_reporting/movies_with_clusters.csv
+
+X_tsne:
+  type: pandas.ParquetDataset
+  filepath: ./data/07_model_output/X_tsne.parquet

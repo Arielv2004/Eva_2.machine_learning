@@ -7,8 +7,9 @@ from kedro.pipeline import Pipeline
 from proyect_machine.pipelines.modelo_regresion.pipeline import create_pipeline as modelo_regresion_pipeline
 from proyect_machine.pipelines.modelo_clasificacion.pipeline import create_pipeline as modelo_clasificacion_pipeline
 
-# 🚀 Nuevo pipeline de clustering (IMPORTANTE)
-from proyect_machine.pipelines.unsupervised_learning.pipeline import create_pipeline as unsupervised_learning_pipeline
+# 🚀 Pipelines nuevos de aprendizaje no supervisado
+from proyect_machine.pipelines.unsupervised_learning.clustering.pipeline import create_pipeline as clustering_pipeline
+from proyect_machine.pipelines.unsupervised_learning.dimensionality_reduction.pipeline import create_pipeline as dr_pipeline
 
 
 def register_pipelines() -> dict[str, Pipeline]:
@@ -16,11 +17,13 @@ def register_pipelines() -> dict[str, Pipeline]:
 
     pipeline_regresion = modelo_regresion_pipeline()
     pipeline_clasificacion = modelo_clasificacion_pipeline()
-    pipeline_unsupervised = unsupervised_learning_pipeline()  # NUEVO
+    pipeline_clustering = clustering_pipeline()
+    pipeline_dr = dr_pipeline()  # dimensionality reduction
 
     return {
         "modelo_regresion": pipeline_regresion,
         "modelo_clasificacion": pipeline_clasificacion,
-        "unsupervised_learning": pipeline_unsupervised,  # NUEVO
-        "__default__": pipeline_regresion
+        "unsupervised_learning_clustering": pipeline_clustering,
+        "dimensionality_reduction": pipeline_dr,
+        "__default__": pipeline_regresion + pipeline_clustering + pipeline_dr
     }
