@@ -1,0 +1,143 @@
+# =======================
+# 📁 DATASETS CRUDOS
+# =======================
+movies_metadata:
+  type: pandas.CSVDataset
+  filepath: ./data/01_raw/movies_metadata.csv
+  load_args:
+    low_memory: False
+
+credits:
+  type: pandas.CSVDataset
+  filepath: ./data/01_raw/credits.csv
+
+ratings:
+  type: pandas.CSVDataset
+  filepath: ./data/01_raw/ratings.csv
+
+
+# =======================
+# 🤖 MODELOS DE REGRESIÓN
+# =======================
+
+# 🔹 Regresión Lineal Simple
+linear_simple_model:
+  type: pickle.PickleDataset
+  filepath: ./models/regression/linear_simple_model.pkl
+
+linear_simple_metrics:
+  type: pickle.PickleDataset
+  filepath: ./models/regression/linear_simple_metrics.pkl
+
+# 🔹 Regresión Lineal Múltiple
+linear_multiple_model:
+  type: pickle.PickleDataset
+  filepath: ./models/regression/linear_multiple_model.pkl
+
+linear_multiple_metrics:
+  type: pickle.PickleDataset
+  filepath: ./models/regression/linear_multiple_metrics.pkl
+
+# 🔹 Árbol de Decisión (Regresión)
+decision_tree_model:
+  type: pickle.PickleDataset
+  filepath: ./models/regression/decision_tree_model.pkl
+
+decision_tree_metrics:
+  type: pickle.PickleDataset
+  filepath: ./models/regression/decision_tree_metrics.pkl
+
+# 🔹 Random Forest Regressor
+random_forest_model:
+  type: pickle.PickleDataset
+  filepath: ./models/regression/random_forest_model.pkl
+
+random_forest_metrics:
+  type: pickle.PickleDataset
+  filepath: ./models/regression/random_forest_metrics.pkl
+
+# 🔹 KNN Regressor
+knn_regressor_model:
+  type: pickle.PickleDataset
+  filepath: ./models/regression/knn_regressor_model.pkl
+
+knn_regressor_metrics:
+  type: pickle.PickleDataset
+  filepath: ./models/regression/knn_regressor_metrics.pkl
+
+
+# =======================
+# 🧠 MODELOS DE CLASIFICACIÓN
+# =======================
+
+# 🔹 Regresión Logística
+logistic_regression_class_model:
+  type: pickle.PickleDataset
+  filepath: ./models/classification/logistic_regression_class_model.pkl
+
+logistic_regression_class_metrics:
+  type: pickle.PickleDataset
+  filepath: ./models/classification/logistic_regression_class_metrics.pkl
+
+# 🔹 Árbol de Decisión
+decision_tree_class_model:
+  type: pickle.PickleDataset
+  filepath: ./models/classification/decision_tree_class_model.pkl
+
+decision_tree_class_metrics:
+  type: pickle.PickleDataset
+  filepath: ./models/classification/decision_tree_class_metrics.pkl
+
+# 🔹 KNN Classifier
+knn_class_model:
+  type: pickle.PickleDataset
+  filepath: ./models/classification/knn_class_model.pkl
+
+knn_class_metrics:
+  type: pickle.PickleDataset
+  filepath: ./models/classification/knn_class_metrics.pkl
+
+# 🔹 Random Forest Classifier
+random_forest_class_model:
+  type: pickle.PickleDataset
+  filepath: ./models/classification/random_forest_class_model.pkl
+
+random_forest_class_metrics:
+  type: pickle.PickleDataset
+  filepath: ./models/classification/random_forest_class_metrics.pkl
+
+# 🔹 SVM Classifier
+svc_model:
+  type: pickle.PickleDataset
+  filepath: ./models/classification/svc_model.pkl
+
+svc_metrics:
+  type: pickle.PickleDataset
+  filepath: ./models/classification/svc_metrics.pkl
+
+
+# =======================
+# 🔍 CLUSTERING (UNSUPERVISED)
+# =======================
+
+# 🔹 Dataset de entrada después de limpieza
+
+
+# 🔹 PCA results
+X_pca:
+  type: pandas.ParquetDataset
+  filepath: ./data/07_model_output/X_pca.parquet
+
+pca_variance:
+  type: json.JSONDataset
+  filepath: ./data/07_model_output/pca_variance.json
+
+# 🔹 Resultados de los 3 algoritmos (KMeans, DBSCAN, Jerárquico)
+cluster_results:
+  type: json.JSONDataset
+  filepath: ./data/07_model_output/cluster_results.json
+
+# 🔹 Dataset final con etiquetas de clusters
+movies_with_clusters:
+  type: pandas.CSVDataset
+  filepath: ./data/08_reporting/movies_with_clusters.csv
