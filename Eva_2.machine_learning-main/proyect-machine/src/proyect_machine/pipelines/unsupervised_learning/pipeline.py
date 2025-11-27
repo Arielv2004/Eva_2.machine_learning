@@ -1,13 +1,20 @@
 from kedro.pipeline import Pipeline, node
-from .nodes import apply_pca, run_clustering_algorithms, attach_cluster_labels
+from .nodes import clean_data, apply_pca, run_clustering_algorithms, attach_cluster_labels
 
 
 def create_pipeline(**kwargs):
     return Pipeline(
         [
             node(
+                func=clean_data,
+                inputs="movies_metadata",
+                outputs="clean_movies",
+                name="clean_movies_node"
+            ),
+
+            node(
                 func=apply_pca,
-                inputs=["movies_metadata", "params:n_components"],
+                inputs=["clean_movies", "params:n_components"],
                 outputs=["X_pca", "pca_variance"],
                 name="apply_pca_node"
             ),
@@ -19,7 +26,7 @@ def create_pipeline(**kwargs):
             ),
             node(
                 func=attach_cluster_labels,
-                inputs=["movies_metadata", "cluster_results"],
+                inputs=["clean_movies", "cluster_results"],
                 outputs="movies_with_clusters",
                 name="attach_labels_node"
             ),

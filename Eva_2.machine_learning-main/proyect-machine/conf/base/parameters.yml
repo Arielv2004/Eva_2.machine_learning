@@ -1,7 +1,8 @@
 # ==========================================
-# 📌 Parámetros clasificación
+# 📌 Parámetros Clasificación Supervisada
 # ==========================================
 target_col: vote_count
+
 feature_cols:
   - revenue
   - budget
@@ -12,11 +13,18 @@ feature_cols:
 test_size: 0.5
 random_state: 42
 
+
 # ==========================================
 # 📌 Parámetros Unsupervised (PCA + Clustering)
 # ==========================================
-n_components: 2         # Componentes PCA
-eps: 0.5                # DBSCAN
-min_samples: 10         # DBSCAN
-kmeans_clusters: 5      # KMeans
-hierarchical_clusters: 5 # Jerárquico
+n_components: 2              # PCA components
+
+# ---- DBSCAN ----
+eps: 0.5
+min_samples: 10
+
+# ---- KMeans ----
+kmeans_clusters: 5
+
+# ---- Agglomerative / Hierarchical ----
+hierarchical_clusters: 5
