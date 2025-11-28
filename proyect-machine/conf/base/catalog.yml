@@ -1,6 +1,4 @@
-# =======================
-# 📁 DATASETS CRUDOS
-# =======================
+# DATASETS CRUDOS
 movies_metadata:
   type: pandas.CSVDataset
   filepath: ./data/01_raw/movies_metadata.csv
@@ -16,22 +14,19 @@ ratings:
   filepath: ./data/01_raw/ratings.csv
 
 
-# =======================
-# 🔧 PREPROCESAMIENTO
-# =======================
+
+# PREPROCESAMIENTO
 clean_movies:
   type: pandas.ParquetDataset
   filepath: ./data/02_intermediate/clean_movies.parquet
 
-# ⭐ NUEVO → Requerido para PCA / t-SNE
+# Requerido para PCA / t-SNE
 scaled_movies:
   type: pandas.ParquetDataset
   filepath: ./data/02_intermediate/scaled_movies.parquet
 
 
-# =======================
-# 🔍 PCA OUTPUTS
-# =======================
+# PCA OUTPUTS
 X_pca:
   type: pandas.ParquetDataset
   filepath: ./data/07_model_output/X_pca.parquet
@@ -41,25 +36,22 @@ pca_variance:
   filepath: ./data/07_model_output/pca_variance.csv
 
 
-# =======================
-# 🤖 RESULTADOS DE CLUSTERING
-# =======================
+# RESULTADOS DE CLUSTERING
+
 cluster_results:
   type: json.JSONDataset
   filepath: ./data/07_model_output/cluster_results.json
 
 
-# =======================
-# 📊 DATASET FINAL CON ETIQUETAS
-# =======================
+# DATASET FINAL CON ETIQUETAS
+
 movies_with_clusters:
   type: pandas.CSVDataset
   filepath: ./data/08_reporting/movies_with_clusters.csv
 
 
-# =======================
-# 🌈 t-SNE OUTPUT
-# =======================
+# t-SNE OUTPUT
+
 X_tsne:
   type: pandas.ParquetDataset
   filepath: ./data/07_model_output/X_tsne.parquet
