@@ -1,6 +1,0 @@
-outs:
-- md5: 43f2fd94ccc447fe230c75e906e2fb2a.dir
-  size: 11699819
-  nfiles: 10
-  hash: md5
-  path: classification
