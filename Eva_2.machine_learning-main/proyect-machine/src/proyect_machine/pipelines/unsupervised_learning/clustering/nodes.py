@@ -34,13 +34,14 @@ def apply_pca(data: pd.DataFrame, n_components: int):
 
 
 # =====================================
-# 🔹 2. CLUSTERING (3 algoritmos: KMeans, DBSCAN, GMM)
-# =====================================
-def run_clustering_algorithms(X_pca: pd.DataFrame):
+def run_clustering_algorithms(X_pca: pd.DataFrame, parameters: dict):
     results = {}
 
     # ---- KMEANS ----
-    kmeans = KMeans(n_clusters=5, random_state=42)
+    kmeans = KMeans(
+        n_clusters=parameters["kmeans"]["clusters"],   # ← CAMBIO AQUÍ
+        random_state=42
+    )
     labels_kmeans = kmeans.fit_predict(X_pca)
 
     results["kmeans"] = {
@@ -52,7 +53,10 @@ def run_clustering_algorithms(X_pca: pd.DataFrame):
     }
 
     # ---- DBSCAN ----
-    dbscan = DBSCAN(eps=0.5, min_samples=10)
+    dbscan = DBSCAN(
+        eps=parameters["dbscan"]["eps"],                # ← CAMBIO AQUÍ
+        min_samples=parameters["dbscan"]["min_samples"] # ← CAMBIO AQUÍ
+    )
     labels_dbscan = dbscan.fit_predict(X_pca)
 
     results["dbscan"] = {
@@ -62,8 +66,11 @@ def run_clustering_algorithms(X_pca: pd.DataFrame):
         "calinski_harabasz": float(calinski_harabasz_score(X_pca, labels_dbscan)) if len(set(labels_dbscan)) > 1 else None
     }
 
-    # ---- GAUSSIAN MIXTURE MODEL (GMM) ----
-    gmm = GaussianMixture(n_components=5, random_state=42)
+    # ---- GMM ----
+    gmm = GaussianMixture(
+        n_components=parameters["gmm"]["components"],   # ← CAMBIO AQUÍ
+        random_state=42
+    )
     labels_gmm = gmm.fit_predict(X_pca)
 
     results["gmm"] = {
@@ -76,13 +83,13 @@ def run_clustering_algorithms(X_pca: pd.DataFrame):
     return results
 
 
+
 # =====================================
-# 🔹 3. UNIR CLUSTERS AL DATASET ORIGINAL
+# 🔹 3. UNIR CLUSTERS AL DATASET
 # =====================================
 def attach_cluster_labels(original_df: pd.DataFrame, cluster_results: dict):
     df = original_df.copy()
 
-    # Agregar etiquetas de cada algoritmo
     df["cluster_kmeans"] = cluster_results["kmeans"]["labels"]
     df["cluster_dbscan"] = cluster_results["dbscan"]["labels"]
     df["cluster_gmm"] = cluster_results["gmm"]["labels"]

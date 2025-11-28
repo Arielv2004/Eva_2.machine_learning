@@ -7,7 +7,6 @@ movies_metadata:
   load_args:
     low_memory: False
 
-
 credits:
   type: pandas.CSVDataset
   filepath: ./data/01_raw/credits.csv
@@ -23,6 +22,11 @@ ratings:
 clean_movies:
   type: pandas.ParquetDataset
   filepath: ./data/02_intermediate/clean_movies.parquet
+
+# ⭐ NUEVO → Requerido para PCA / t-SNE
+scaled_movies:
+  type: pandas.ParquetDataset
+  filepath: ./data/02_intermediate/scaled_movies.parquet
 
 
 # =======================
@@ -52,6 +56,10 @@ movies_with_clusters:
   type: pandas.CSVDataset
   filepath: ./data/08_reporting/movies_with_clusters.csv
 
+
+# =======================
+# 🌈 t-SNE OUTPUT
+# =======================
 X_tsne:
   type: pandas.ParquetDataset
   filepath: ./data/07_model_output/X_tsne.parquet
