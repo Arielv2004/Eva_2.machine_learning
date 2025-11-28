@@ -17,100 +17,49 @@ ratings:
 
 
 # =======================
-# 🤖 MODELOS DE REGRESIÓN
+# 🔧 PREPROCESAMIENTO
 # =======================
+clean_movies:
+  type: pandas.ParquetDataset
+  filepath: ./data/02_intermediate/clean_movies.parquet
 
-# 🔹 Regresión Lineal Simple
-linear_simple_model:
-  type: pickle.PickleDataset
-  filepath: ./models/regression/linear_simple_model.pkl
-
-linear_simple_metrics:
-  type: pickle.PickleDataset
-  filepath: ./models/regression/linear_simple_metrics.pkl
-
-# 🔹 Regresión Lineal Múltiple
-linear_multiple_model:
-  type: pickle.PickleDataset
-  filepath: ./models/regression/linear_multiple_model.pkl
-
-linear_multiple_metrics:
-  type: pickle.PickleDataset
-  filepath: ./models/regression/linear_multiple_metrics.pkl
-
-# 🔹 Árbol de Decisión (Regresión)
-decision_tree_model:
-  type: pickle.PickleDataset
-  filepath: ./models/regression/decision_tree_model.pkl
-
-decision_tree_metrics:
-  type: pickle.PickleDataset
-  filepath: ./models/regression/decision_tree_metrics.pkl
-
-# 🔹 Random Forest Regressor
-random_forest_model:
-  type: pickle.PickleDataset
-  filepath: ./models/regression/random_forest_model.pkl
-
-random_forest_metrics:
-  type: pickle.PickleDataset
-  filepath: ./models/regression/random_forest_metrics.pkl
-
-# 🔹 KNN Regressor
-knn_regressor_model:
-  type: pickle.PickleDataset
-  filepath: ./models/regression/knn_regressor_model.pkl
-
-knn_regressor_metrics:
-  type: pickle.PickleDataset
-  filepath: ./models/regression/knn_regressor_metrics.pkl
+# ⭐ NUEVO → Requerido para PCA / t-SNE
+scaled_movies:
+  type: pandas.ParquetDataset
+  filepath: ./data/02_intermediate/scaled_movies.parquet
 
 
 # =======================
-# 🧠 MODELOS DE CLASIFICACIÓN
+# 🔍 PCA OUTPUTS
 # =======================
+X_pca:
+  type: pandas.ParquetDataset
+  filepath: ./data/07_model_output/X_pca.parquet
 
-# 🔹 Regresión Logística
-logistic_regression_class_model:
-  type: pickle.PickleDataset
-  filepath: ./models/classification/logistic_regression_class_model.pkl
+pca_variance:
+  type: pandas.CSVDataset
+  filepath: ./data/07_model_output/pca_variance.csv
 
-logistic_regression_class_metrics:
-  type: pickle.PickleDataset
-  filepath: ./models/classification/logistic_regression_class_metrics.pkl
 
-# 🔹 Árbol de Decisión
-decision_tree_class_model:
-  type: pickle.PickleDataset
-  filepath: ./models/classification/decision_tree_class_model.pkl
+# =======================
+# 🤖 RESULTADOS DE CLUSTERING
+# =======================
+cluster_results:
+  type: json.JSONDataset
+  filepath: ./data/07_model_output/cluster_results.json
 
-decision_tree_class_metrics:
-  type: pickle.PickleDataset
-  filepath: ./models/classification/decision_tree_class_metrics.pkl
 
-# 🔹 KNN Classifier
-knn_class_model:
-  type: pickle.PickleDataset
-  filepath: ./models/classification/knn_class_model.pkl
+# =======================
+# 📊 DATASET FINAL CON ETIQUETAS
+# =======================
+movies_with_clusters:
+  type: pandas.CSVDataset
+  filepath: ./data/08_reporting/movies_with_clusters.csv
 
-knn_class_metrics:
-  type: pickle.PickleDataset
-  filepath: ./models/classification/knn_class_metrics.pkl
 
-# 🔹 Random Forest Classifier
-random_forest_class_model:
-  type: pickle.PickleDataset
-  filepath: ./models/classification/random_forest_class_model.pkl
-
-random_forest_class_metrics:
-  type: pickle.PickleDataset
-  filepath: ./models/classification/random_forest_class_metrics.pkl
-
-# 🔹 SVM Classifier
-svc_model:
-  type: pickle.PickleDataset
-  filepath: ./models/classification/svc_model.pkl
-
-svc_metrics:
-  type: pickle.PickleDataset
-  filepath: ./models/classification/svc_metrics.pkl
+# =======================
+# 🌈 t-SNE OUTPUT
+# =======================
+X_tsne:
+  type: pandas.ParquetDataset
+  filepath: ./data/07_model_output/X_tsne.parquet

@@ -1,17 +1,44 @@
-# Dataset de entrada
-movies_metadata:
-  type: pandas.CSVDataSet
-  filepath: data/01_raw/movies_metadata.csv
-
-# Modelo entrenado de clasificación (SVC o LogisticRegression)
-model_clasificacion:
-  type: pickle.PickleDataSet
-  filepath: data/06_models/modelo_clasificacion.pkl
-  versioned: true
-
+# ==========================================
+# 📌 Parámetros Clasificación Supervisada
+# ==========================================
 target_col: vote_count
-feature_cols: ['revenue', 'budget', 'popularity', 'runtime', 'vote_average']
+
+feature_cols:
+  - revenue
+  - budget
+  - popularity
+  - runtime
+  - vote_average
+
 test_size: 0.5
 random_state: 42
 
 
+# ==========================================
+# 📌 Parámetros Unsupervised (PCA + Clustering)
+# ==========================================
+pca:
+  n_components: 3
+
+dbscan:
+  eps: 0.5
+  min_samples: 10
+
+kmeans:
+  clusters: 5
+
+gmm:
+  components: 5
+
+tsne:
+  n_components: 2
+  perplexity: 30
+  learning_rate: auto
+  init: random
+
+
+# columnas para el pipeline de reducción dimensional (versión 2)
+feature_cols2:
+  - revenue
+  - runtime
+  - vote_average
