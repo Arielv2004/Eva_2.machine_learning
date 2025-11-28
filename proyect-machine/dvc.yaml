@@ -1,0 +1,18 @@
+stages:
+  unsupervised_clustering:
+    cmd: kedro run --pipeline=unsupervised_learning_clustering
+    deps:
+    - Data/01_raw
+    - conf/base/catalog.yml
+    - src/proyect_machine/pipelines/unsupervised_learning/clustering
+    outs:
+    - Data/07_model_output/cluster_results.json
+  dimensionality_reduction:
+    cmd: kedro run --pipeline=dimensionality_reduction
+    deps:
+    - Data/01_raw
+    - conf/base/catalog.yml
+    - src/proyect_machine/pipelines/unsupervised_learning/dimensionality_reduction
+    outs:
+    - Data/07_model_output/X_pca.parquet
+    - Data/07_model_output/X_tsne.parquet
