@@ -4,7 +4,7 @@ from .nodes import scale_data, apply_pca, apply_tsne
 
 def create_pipeline(**kwargs):
     return Pipeline([
-        # 1️⃣ Escalar los datos
+        # Escalar los datos
         node(
             func=scale_data,
             inputs=dict(
@@ -15,7 +15,7 @@ def create_pipeline(**kwargs):
             name="scale_data_node"
         ),
 
-        # 2️⃣ PCA
+        # PCA
         node(
             func=apply_pca,
             inputs=dict(
@@ -26,7 +26,7 @@ def create_pipeline(**kwargs):
             name="pca_node"
         ),
 
-        # 3️⃣ t-SNE
+        # t-SNE
         node(
             func=apply_tsne,
             inputs=dict(

@@ -6,18 +6,14 @@ from sklearn.mixture import GaussianMixture
 from sklearn.metrics import silhouette_score, davies_bouldin_score, calinski_harabasz_score
 
 
-# =====================================
-# 🔹 0. LIMPIAR DATA
-# =====================================
+# LIMPIAR DATA
 def clean_data(data: pd.DataFrame) -> pd.DataFrame:
     numeric_data = data.select_dtypes(include=['float64', 'int64'])
     clean_df = numeric_data.fillna(numeric_data.mean())
     return clean_df
 
 
-# =====================================
-# 🔹 1. PCA
-# =====================================
+# PCA
 def apply_pca(data: pd.DataFrame, n_components: int):
     scaler = StandardScaler()
     scaled_data = scaler.fit_transform(data)
@@ -32,12 +28,10 @@ def apply_pca(data: pd.DataFrame, n_components: int):
 
     return pd.DataFrame(X_pca), pca_variance
 
-
-# =====================================
 def run_clustering_algorithms(X_pca: pd.DataFrame, parameters: dict):
     results = {}
 
-    # ---- KMEANS ----
+    # KMEANS
     kmeans = KMeans(
         n_clusters=parameters["kmeans"]["clusters"],   # ← CAMBIO AQUÍ
         random_state=42
@@ -52,7 +46,7 @@ def run_clustering_algorithms(X_pca: pd.DataFrame, parameters: dict):
         "calinski_harabasz": float(calinski_harabasz_score(X_pca, labels_kmeans))
     }
 
-    # ---- DBSCAN ----
+    # DBSCAN 
     dbscan = DBSCAN(
         eps=parameters["dbscan"]["eps"],                # ← CAMBIO AQUÍ
         min_samples=parameters["dbscan"]["min_samples"] # ← CAMBIO AQUÍ
@@ -66,7 +60,7 @@ def run_clustering_algorithms(X_pca: pd.DataFrame, parameters: dict):
         "calinski_harabasz": float(calinski_harabasz_score(X_pca, labels_dbscan)) if len(set(labels_dbscan)) > 1 else None
     }
 
-    # ---- GMM ----
+    # GMM 
     gmm = GaussianMixture(
         n_components=parameters["gmm"]["components"],   # ← CAMBIO AQUÍ
         random_state=42
@@ -83,10 +77,8 @@ def run_clustering_algorithms(X_pca: pd.DataFrame, parameters: dict):
     return results
 
 
+# UNIR CLUSTERS AL DATASET
 
-# =====================================
-# 🔹 3. UNIR CLUSTERS AL DATASET
-# =====================================
 def attach_cluster_labels(original_df: pd.DataFrame, cluster_results: dict):
     df = original_df.copy()
 

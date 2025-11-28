@@ -8,7 +8,7 @@ from .nodes import (
 def create_pipeline(**kwargs):
     return Pipeline([
         
-        # 1️⃣ Limpiar datos
+        # Limpiar datos
         node(
             func=clean_data,
             inputs="movies_metadata",
@@ -16,7 +16,7 @@ def create_pipeline(**kwargs):
             name="clean_movies_node"
         ),
 
-        # 2️⃣ Clustering (usa PCA del otro pipeline)
+        # Clustering 
         node(
             func=run_clustering_algorithms,
             inputs=["X_pca", "parameters"],
@@ -24,7 +24,7 @@ def create_pipeline(**kwargs):
             name="clustering_algorithms_node"
         ),
 
-        # 3️⃣ Unir clusters al dataset original
+        # Unir clusters al dataset original
         node(
             func=attach_cluster_labels,
             inputs=["clean_movies", "cluster_results"],
