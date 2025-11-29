@@ -1,0 +1,63 @@
+schema: '2.0'
+stages:
+  unsupervised_clustering:
+    cmd: kedro run --pipeline=unsupervised_learning_clustering
+    deps:
+    - path: conf/base/catalog.yml
+      hash: md5
+      md5: 51f2fc0044942e10fb2e7513f95405a0
+      size: 1506
+    - path: data/01_raw
+      hash: md5
+      md5: 8d4849ce49f7cb414e549a926c99773b.dir
+      size: 933913422
+      nfiles: 6
+    - path: src/proyect_machine/pipelines/unsupervised_learning/clustering
+      hash: md5
+      md5: 969f93411b7035e9a2717077d61b2eaa.dir
+      size: 15672
+      nfiles: 9
+    outs:
+    - path: data/07_model_output/cluster_results.json
+      hash: md5
+      md5: d22ae67b4f3315cc1743a0b1ed4b3444
+      size: 1364814
+    - path: data/08_reporting/movies_with_clusters.csv
+      hash: md5
+      md5: 1dca62d5b67e693a25f7105690d08d79
+      size: 1234022
+  dimensionality_reduction:
+    cmd: kedro run --pipeline=dimensionality_reduction
+    deps:
+    - path: conf/base/catalog.yml
+      hash: md5
+      md5: 51f2fc0044942e10fb2e7513f95405a0
+      size: 1506
+    - path: data/01_raw
+      hash: md5
+      md5: 8d4849ce49f7cb414e549a926c99773b.dir
+      size: 933913422
+      nfiles: 6
+    - path: 
+        src/proyect_machine/pipelines/unsupervised_learning/dimensionality_reduction
+      hash: md5
+      md5: 308c0acb49661cecf1d52d3c070dbe1b.dir
+      size: 10410
+      nfiles: 9
+    outs:
+    - path: data/02_intermediate/scaled_movies.parquet
+      hash: md5
+      md5: 080b1f8fc8ebd7aa7f8dc88ed588fde3
+      size: 181722
+    - path: data/07_model_output/X_pca.parquet
+      hash: md5
+      md5: df148491429a1bde87bf5a58d56b084d
+      size: 580109
+    - path: data/07_model_output/X_tsne.parquet
+      hash: md5
+      md5: c4a0cb6c12a9c3aec1e16b0a94783a09
+      size: 401602
+    - path: data/07_model_output/pca_variance.csv
+      hash: md5
+      md5: 1bf5b23ec552b5457ee0440bf7adc74c
+      size: 109

@@ -1,20 +1,31 @@
-version: '3.8'
+version: "3.8"
 
 x-airflow-common: &airflow-common
   image: apache/airflow:2.9.2
   env_file:
     - .env
   environment:
-    - AIRFLOW__CORE__EXECUTOR=LocalExecutor
-    - AIRFLOW__CORE__SQL_ALCHEMY_CONN=postgresql+psycopg2://airflow:airflow@postgres:5432/airflow
-    - AIRFLOW__CORE__FERNET_KEY=fernet_key_aqui
-    - AIRFLOW__WEBSERVER__RBAC=True
-    - PYTHONPATH=/opt/airflow/src/proyect-machine
+    # Configuración básica de Airflow
+    AIRFLOW__CORE__EXECUTOR: LocalExecutor
+    AIRFLOW__CORE__SQL_ALCHEMY_CONN: postgresql+psycopg2://airflow:airflow@postgres:5432/airflow
+    AIRFLOW__CORE__FERNET_KEY: NXzk0X-pUpCPXIf-RHvLeti70QwRpPIGhqMvIdwYYos=
+    AIRFLOW__CORE__LOAD_EXAMPLES: "False"
+    AIRFLOW__WEBSERVER__RBAC: "True"
+
+    # Para que Airflow vea tu proyecto Kedro
+    PYTHONPATH: /opt/airflow/src/proyect-machine
+
   volumes:
-    - C:/airflow_data/dags:/opt/airflow/dags
-    - C:/airflow_data/logs:/opt/airflow/logs
-    - C:/airflow_data/plugins:/opt/airflow/plugins
-    - C:/Users/sever/OneDrive/Desktop/ML/Eva_2.machine_learning/proyect-machine:/opt/airflow/src/proyect-machine
+    # DAGs: aquí debe estar tu archivo run_kedro_pipelines.py
+    - ./dags:/opt/airflow/dags
+
+    # Logs y plugins de Airflow (carpetas locales dentro del proyecto)
+    - ./logs:/opt/airflow/logs
+    - ./plugins:/opt/airflow/plugins
+
+    # Proyecto Kedro completo montado dentro del contenedor
+    - .:/opt/airflow/src/proyect-machine
+
   user: "${AIRFLOW_UID:-50000}:0"
 
 services:
@@ -22,29 +33,30 @@ services:
     image: postgres:13
     container_name: proyect-machine-postgres
     environment:
-      - POSTGRES_USER=airflow
-      - POSTGRES_PASSWORD=airflow
-      - POSTGRES_DB=airflow
+      POSTGRES_USER: airflow
+      POSTGRES_PASSWORD: airflow
+      POSTGRES_DB: airflow
     volumes:
       - postgres_data:/var/lib/postgresql/data
     healthcheck:
       test: ["CMD-SHELL", "pg_isready -U airflow"]
       interval: 5s
       retries: 5
+      timeout: 5s
 
   airflow-init:
     <<: *airflow-common
     container_name: proyect-machine-airflow-init
     depends_on:
       - postgres
+    entrypoint: /bin/bash
     command: >
-      bash -c "
-      pip install kedro==1.0.0 kedro-datasets scikit-learn pandas numpy &&
+      -c "
+      pip install --no-cache-dir -r /opt/airflow/src/proyect-machine/requirements.txt dvc[s3] &&
       airflow db init &&
       airflow users create --username admin --password admin --firstname Admin --lastname User --role Admin --email admin@example.com
       "
     restart: on-failure
-
 
   airflow-scheduler:
     <<: *airflow-common
@@ -54,7 +66,7 @@ services:
       - airflow-init
     command: >
       bash -c "
-      pip install kedro==1.0.0 kedro-datasets scikit-learn pandas numpy &&
+      pip install --no-cache-dir -r /opt/airflow/src/proyect-machine/requirements.txt dvc[s3] &&
       airflow scheduler
       "
     restart: always
@@ -69,7 +81,7 @@ services:
       - "8080:8080"
     command: >
       bash -c "
-      pip install kedro==1.0.0 kedro-datasets scikit-learn pandas numpy &&
+      pip install --no-cache-dir -r /opt/airflow/src/proyect-machine/requirements.txt dvc[s3] &&
       airflow webserver
       "
     restart: always
