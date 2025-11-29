@@ -40,8 +40,6 @@ proyect-machine/
 ├── docker-compose.yml
 ├── dvc.yaml
 └── README.md
-go
-Copiar código
 ```
 ---
 
