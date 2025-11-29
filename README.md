@@ -15,13 +15,14 @@ Se trabajan modelos de regresión, clasificación y aprendizaje no supervisado u
 
 ## 🧩 Estructura del Proyecto
 
+```
 proyect-machine/
 │
 ├── data/
-│   ├── 01_raw/                  
-│   ├── 02_intermediate/        
-│   ├── 03_primary/              
-│   ├── 07_model_output/    
+│   ├── 01_raw/
+│   ├── 02_intermediate/
+│   ├── 03_primary/
+│   ├── 07_model_output/
 │   └── 08_reporting/
 │
 ├── src/proyect_machine/
@@ -29,18 +30,19 @@ proyect-machine/
 │   │   ├── modelo_regresion/
 │   │   ├── modelo_clasificacion/
 │   │   └── unsupervised_learning/
-│   ├── nodes/   
+│   ├── nodes/
 │   └── hooks.py
 │
-├── conf/base/             
-├── notebooks/     
-├── dags/      
+├── conf/base/
+├── notebooks/
+├── dags/
 ├── Dockerfile
 ├── docker-compose.yml
 ├── dvc.yaml
 └── README.md
-
-
+go
+Copiar código
+```
 ---
 
 ## ⚙️ Instalación y Configuración
