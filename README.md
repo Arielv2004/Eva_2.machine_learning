@@ -9,43 +9,37 @@
 
 ---
 
-Este proyecto implementa un flujo completo de **Machine Learning** basado en la metodología **CRISP-DM**, gestionado con **Kedro**, versionado con **DVC**, y orquestado mediante **Apache Airflow** dentro de un entorno **Docker**.  
+Este proyecto desarrolla un flujo completo de Machine Learning siguiendo la metodología CRISP-DM, utilizando Kedro para la gestión de pipelines, DVC para versionamiento de datos y modelos, y Apache Airflow para la orquestación del proceso dentro de un entorno Docker.
 
-Se aplican modelos de **regresión y clasificación** sobre datos cinematográficos (`movies_metadata.csv`, `credits.csv`, `ratings.csv`) para entrenar, evaluar y versionar pipelines de ML.
+Se trabajan modelos de regresión, clasificación y aprendizaje no supervisado utilizando los datasets: movies_metadata.csv, credits.csv y ratings.csv.
 
----
-
-
-```bash
 ## 🧩 Estructura del Proyecto
 
 proyect-machine/
 │
 ├── data/
-│ ├── 01_raw/ # Datos originales
-│ ├── 02_intermediate/ # Limpieza / feature engineering
-│ ├── 03_primary/ # Datos preparados para modelos
-│ └── 06_models/ # Modelos finales entrenados
+│   ├── 01_raw/                  
+│   ├── 02_intermediate/        
+│   ├── 03_primary/              
+│   ├── 07_model_output/    
+│   └── 08_reporting/
 │
-├── src/
-│ ├── proyect_machine/
-│ │ ├── pipelines/
-│ │ │ ├── modelo_regresion/
-│ │ │ └── modelo_clasificacion/
-│ │ ├── nodes/ # Funciones de entrenamiento y evaluación
-│ │ └── hooks.py
-│ └── ...
+├── src/proyect_machine/
+│   ├── pipelines/
+│   │   ├── modelo_regresion/
+│   │   ├── modelo_clasificacion/
+│   │   └── unsupervised_learning/
+│   ├── nodes/   
+│   └── hooks.py
 │
-├── notebooks/ # Exploración, pruebas y resultados
-├── conf/ # Configuración Kedro (catalog.yml, logging.yml)
-├── models/
-│ ├── regression/
-│ └── classification/
-│
-├── docker-compose.yml # Contenedores Airflow + dependencias
-├── requirements.txt
-├── pyproject.toml
+├── conf/base/             
+├── notebooks/     
+├── dags/      
+├── Dockerfile
+├── docker-compose.yml
+├── dvc.yaml
 └── README.md
+
 
 ---
 
@@ -79,9 +73,10 @@ Usuario: admin
 Contraseña: admin
 
 2. DAG principal
-run_kedro_pipelines → ejecuta ambos pipelines:
+dags/ml_pipeline_master.py → ejecuta todos los pipelines:
 modelo_regresion
 modelo_clasificacion
+modelos de clustering
 
 También puedes ejecutarlos manualmente dentro del contenedor:
 docker exec -it proyect-machine-airflow-webserver bash
@@ -113,6 +108,13 @@ Decision Tree Classifier
 KNN Classifier
 Random Forest Classifier
 SVM (RBF Kernel)
+
+🔹 Aprendizaje no supervisado
+KMeans
+DBSCAN
+HDBSCAN
+PCA
+t-SNE
 
 💾 Versionado con DVC
 El proyecto utiliza DVC para rastrear los modelos entrenados y sus métricas.
